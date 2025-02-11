@@ -8,3 +8,13 @@ n.put(1, { SinOsc.ar([3030, 3060]) * LFTri.kr(1/5.4, 3).range(-60, -30).dbamp })
 n.put(2, { Saw.ar([3030, 3060]/20) * LFTri.kr(1/5.4, 3).range(-60, -30).dbamp });
 n.put(3, { Dust.ar([3030, 3060]/30) * LFTri.kr(1/2.4, 3).range(-60, -10).dbamp });
 )
+
+(
+SynthDef(\help_notRand, { |out|
+    Out.ar(out,
+        SinOsc.ar(rrand(20, 550), 0, 0.6) * Line.kr(5, 0, 10, doneAction: Done.freeSelf)
+    )
+}).add;
+a = Synth(\help_notRand);
+b = Synth(\help_notRand);
+)
