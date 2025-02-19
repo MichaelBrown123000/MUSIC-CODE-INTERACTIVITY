@@ -9,6 +9,8 @@ n.put(2, { Saw.ar([3030, 3060]/20) * LFTri.kr(1/5.4, 3).range(12, 11).dbamp });
 n.put(3, { Dust.ar([3030, 3060]/30) * LFTri.kr(1/2.4, 3).range(6, 18).dbamp });
 )
 
+n.gui
+
 (
 SynthDef.new(\sineTest, {
 	arg noiseHz=5;
