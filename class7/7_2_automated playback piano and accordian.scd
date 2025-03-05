@@ -2,8 +2,8 @@
 
 // Let's get some other sound files into buffers
 (
-//~dirpath = "MySounds/*".resolveRelative; //when you load up a folder, you gotta have the slash after it!
-~dirpath = "piano and accordian/*".resolveRelative; //this folder also sounds good for these examples.
+~dirpath = "MySounds/*".resolveRelative; //when you load up a folder, you gotta have the slash after it!
+//~dirpath = "piano and accordian/*".resolveRelative; //this folder also sounds good for these examples.
 ~filepaths = ~dirpath.pathMatch;
 ~buffers = ~filepaths.collect { |path|  Buffer.read(s, path) };
 ~buffers = ~filepaths.collect { |path|  Buffer.readChannel(s, path, channels: [0]);};
@@ -49,7 +49,7 @@ you can take it out if you need to, or you can modify the structure for stereo.
 //instead of all at once at the top. you need to decide which style makes sense.
 
 //just having fun! a sampler player connected to dust.
-(~np[0..10] =
+(~np[0..3] =
 { | lofreq=1|
     var trig = Dust.ar(lofreq);  // Random trigger w controllable argument
     var buf = ~buffers.choose;
@@ -72,7 +72,7 @@ you can take it out if you need to, or you can modify the structure for stereo.
 ~np.removeLast
 
 (~np[0] = {
-	var buf = ~buffers.choose;
+	var buf = ~buffers.at(0);
 	var rate = (0..12).choose.midiratio;// It randomly selects an integer between 0 and 12.It then converts this integer to a frequency ratio as if it were a MIDI note number difference.
 	var amp = 1.0;
 			Pan2.ar(
@@ -121,7 +121,7 @@ you can take it out if you need to, or you can modify the structure for stereo.
 //this little piece of code defines a new variable, slendro, to be a 5 tone equal temperament scale.
 
 (~np[0] = {
-	var buf = ~buffers.at(5); //just pick a particular note
+	var buf = ~buffers.at(1); //just pick a particular note
 	var tuningIndex = (0..~slendro.ratios.size-1).choose;  // Choose a random index from the 5-ET tuning
 	var rate = ~slendro.ratios[tuningIndex];  // Use the ratio from your 5-ET tuning
 	var amp = rrand(-40, 0).dbamp; //random dynamics
@@ -199,7 +199,7 @@ wait the appropriate amount of time and rerun it.
 Here is a simple example:
 
 ~np[0] = Task({
-	"1 mississippi".postln; 2 .wait;
+	"1 mississippi".postln; 1 .wait;
 	"2 mississippi".postln; 1 .wait;
 	"3 mississippi".postln; 1 .wait;
 	"4 mississippi".postln; 1 .wait;
@@ -209,7 +209,7 @@ Here is a simple example:
 ~np[1] =  Task({ var buf, rate, amp, wat;
 	 buf =  ~buffers.choose;
 	 rate = (0..12).choose.midiratio;
-	 amp = 0.1;
+	 amp = 0.8;
 	~np[0] = {
 			Pan2.ar(
 				PlayBuf.ar(buf.numChannels,buf.bufnum, rate: rate,  doneAction: 2) * amp,
@@ -244,7 +244,7 @@ Here is a simple example:
 		};
 		buf.duration.wait;
 	}
-});
+})
 //now this sample player plays infinitely.
 
 ~np[1]={nil}
@@ -265,7 +265,7 @@ Here is a simple example:
 				Rand(-1.0, 1.0)
 			)
 		};
-		~waitTime.wait
+		~waitTime*buf.duration
 	}
 });
 )
@@ -307,6 +307,6 @@ Here is a simple example:
 		rrand(0.05, 0.3).wait
 	};
 	"done!".postln;
-});
+})
 
 
