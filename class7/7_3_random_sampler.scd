@@ -1,6 +1,11 @@
 (
+<<<<<<< HEAD
 //~dirpath = "MySounds/*".resolveRelative; //when you load up a folder, you gotta have the slash after it!
 ~dirpath = "MySounds/*".resolveRelative; //this folder also sounds good for these examples.
+=======
+~dirpath = "MySounds/*".resolveRelative; //when you load up a folder, you gotta have the slash after it!//..
+//~dirpath = "piano and accordian/*".resolveRelative; //this folder also sounds good for these examples.
+>>>>>>> d61981760066a27764da22edd1e6d6777c2b2fc5
 ~filepaths = ~dirpath.pathMatch;
 ~buffers = ~filepaths.collect { |path|  Buffer.read(s, path) };
 ~buffers = ~filepaths.collect { |path|  Buffer.readChannel(s, path, channels: [0]);};
@@ -107,6 +112,7 @@ s.waitForBoot({
     inf.do { |cycle|
         "Starting cycle %...".format(cycle + 1).postln;
 
+<<<<<<< HEAD
 		   // Play slow section
 		~michael_harrisonglitchy.value;
 		~np.source = { nil };
@@ -122,6 +128,22 @@ s.waitForBoot({
         // Play fast section
         ~fast.value;
 		~np.source = { nil };
+=======
+		   // Play slendroGLITCHY section
+		~sparse.value;
+        ~checkAndClearServer.value;
+
+//		~slow.value;
+        ~checkAndClearServer.value;
+
+		// Play glitchy section
+ //       ~glitchy.value;
+        ~checkAndClearServer.value;
+
+        // Play fast section
+//        ~fast.value;
+        ~checkAndClearServer.value;
+>>>>>>> d61981760066a27764da22edd1e6d6777c2b2fc5
 
         "Completed cycle %".format(cycle + 1).postln;
     };
@@ -137,6 +159,7 @@ s.waitForBoot({
 "~stop.value - Stop the loop".postln;
 
 //In SuperCollider, when you use .value on a variable that contains a function, you're saying "read whatever function is stored in this variable, and execute it now."
+
 ~start.value
 ~stop.value
 
