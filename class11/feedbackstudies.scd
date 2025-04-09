@@ -11,7 +11,9 @@ a[0] = {PinkNoise.ar(0.5)};
 a[0] = nil;
 
 //Aah~!!! feedback!
-a[0] = {SoundIn.ar(0) };
+a[0] = {
+	SoundIn.ar(0)
+    };
 //this sounds really different on different speakers
 
 
@@ -58,7 +60,7 @@ a[0].scope
 (a[0] =
 {
 	var input = SoundIn.ar(0);
-	var mouse = MouseX.kr(60, 2000, 1);
+	var mouse = MouseX.kr(20, 2000, 1);
 	var qual = MouseY.kr(1, 0.1);
 	var output = RLPF.ar(input, mouse, qual);
 	output;
@@ -82,7 +84,7 @@ a[0].scope
 {
 	var input = SoundIn.ar(0);
 	var delay = MouseX.kr(0.1, 2);
-	var output = CombN.ar(input, 1, delay, 1);
+	var output = CombN.ar(input, 2, delay, 1);
 	output;
 };
 )
