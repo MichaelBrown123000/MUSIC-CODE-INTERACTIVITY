@@ -33,11 +33,31 @@ a[0..7] = {
     );
 
     Formants.ar(freq, v) * 0.05;
+
 }
 )
 
+(
+~scale = Scale.minor;
+//~scale = Scale.major; // both work
+~tun = ~scale.degrees + 60;
+Spec.add(\tempo, Spec.specs[\lofreq]);
+// Set the source function for the NodeProxy
+a[0..3] = {|tempo=2|
+    var freq, v, trig;
+    trig = Dust.kr(tempo); // Trigger approximately 2 times per second
+	freq = TChoose.kr(trig, ~tun).midicps; //now instead of using the choose method, we're using a choose UGEN to be triggered
+    v = Vowel.compose(
+        [\a, \e, \i, \o],
+        [\soprano, \bass, \tenor, \alto],
+        TRand.kr({0}!4, {20}!4, trig).normalizeSum //using TRang means
+    );
+    Formants.ar(freq, v) * 0.05 * EnvGen.kr(Env.perc(0.01, 2), trig);
+};
 
+)
 
+a.gui
 (
 ~scale = Scale.minor;
 // ~scale = Scale.major; // both work
